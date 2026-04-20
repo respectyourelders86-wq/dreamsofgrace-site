@@ -240,15 +240,30 @@
     50%{opacity:1;transform:scale(1.08)}
   }
   @keyframes spin{to{transform:rotate(360deg)}}
-  .dove-video,.dove-still{
+  .dove-still{
     position:absolute;inset:0;width:100%;height:100%;
     border-radius:50%;
     object-fit:cover;
-    filter:drop-shadow(0 30px 60px rgba(212,175,55,.3));
+    z-index:2;
+    transform-origin:50% 55%;
+    filter:drop-shadow(0 30px 60px rgba(212,175,55,.35));
+    /* Wings flap — subtle breathing scale-y with tiny rotation, 0.9s cycle */
+    animation:wingFlap 0.9s cubic-bezier(.4,0,.2,1) infinite, wingFloat 6s ease-in-out infinite;
+    will-change:transform;
   }
-  .dove-still{z-index:1;opacity:1;transition:opacity .8s ease}
-  .dove-video{z-index:2;opacity:0;transition:opacity 1s ease}
-  .dove-video.loaded{opacity:1}
+  @keyframes wingFlap{
+    /* Gentle: 2.5% vertical pulse + 0.25deg tilt — reads as a wing beat without distorting the bird */
+    0%,100%{transform:scaleY(1) rotate(0deg)}
+    40%{transform:scaleY(0.975) rotate(-0.25deg)}
+    60%{transform:scaleY(1.018) rotate(0.18deg)}
+  }
+  @keyframes wingFloat{
+    0%,100%{translate:0 0}
+    50%{translate:0 -6px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .dove-still{animation:none}
+  }
   /* Radial mask to fade bird edges into background */
   .dove-mask{
     position:absolute;inset:0;border-radius:50%;z-index:3;pointer-events:none;
@@ -687,10 +702,6 @@
       </div>
       <div class="dove-halo"></div>
       <img class="dove-still" src="assets/dove-hero.webp" alt="Dreams of Grace — crowned golden dove in side-profile flight" />
-      <video class="dove-video" autoplay muted loop playsinline preload="auto" poster="assets/dove-hero.webp" aria-hidden="true">
-        <source src="assets/dove-flying.webm" type="video/webm" />
-        <source src="assets/dove-flying.mp4" type="video/mp4" />
-      </video>
       <div class="dove-mask"></div>
       <div class="dove-constellation" aria-hidden="true">
         <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
@@ -857,14 +868,6 @@
 </footer>
 
 <script>
-  // Fade in video once it's ready
-  const v = document.querySelector('.dove-video');
-  if (v) {
-    const onReady = () => v.classList.add('loaded');
-    if (v.readyState >= 3) onReady();
-    else v.addEventListener('loadeddata', onReady);
-  }
-
   // Reveal on scroll
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
