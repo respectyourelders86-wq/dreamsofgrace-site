@@ -7,7 +7,7 @@
 <meta name="description" content="Dreams of Grace partners with ambitious brands to build unforgettable websites and quiet, tireless support systems — at zero upfront cost. We only win when you do." />
 <meta property="og:title" content="Dreams of Grace" />
 <meta property="og:description" content="Free websites + quiet, tireless support systems for brands we believe in. Fees unlock only when your business transforms." />
-<meta property="og:image" content="/assets/dove-hero.webp" />
+<meta property="og:image" content="/assets/hero-brain.png" />
 <meta property="og:url" content="https://www.dreamsofgrace.co/" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -35,7 +35,7 @@
       "legalName": "BORN 2 WIN PTY LTD",
       "url": "https://www.dreamsofgrace.co/",
       "logo": "https://www.dreamsofgrace.co/assets/dove-crest.webp",
-      "image": "https://www.dreamsofgrace.co/assets/dove-hero.webp",
+      "image": "https://www.dreamsofgrace.co/assets/hero-brain.png",
       "email": "hello@dreamsofgrace.co",
       "slogan": "Built by grace, led by dreams.",
       "areaServed": [
@@ -304,21 +304,19 @@
     border-radius:50%;
     object-fit:cover;
     z-index:2;
-    transform-origin:50% 55%;
-    filter:drop-shadow(0 30px 60px rgba(212,175,55,.35));
-    /* Wings flap — subtle breathing scale-y with tiny rotation, 0.9s cycle */
-    animation:wingFlap 0.9s cubic-bezier(.4,0,.2,1) infinite, wingFloat 6s ease-in-out infinite;
-    will-change:transform;
+    transform-origin:50% 50%;
+    filter:drop-shadow(0 30px 60px rgba(212,175,55,.45));
+    /* Brain pulse — subtle glow breathe, no wing flap */
+    animation:brainPulse 4.5s ease-in-out infinite, brainFloat 7s ease-in-out infinite;
+    will-change:transform, filter;
   }
-  @keyframes wingFlap{
-    /* Gentle: 2.5% vertical pulse + 0.25deg tilt — reads as a wing beat without distorting the bird */
-    0%,100%{transform:scaleY(1) rotate(0deg)}
-    40%{transform:scaleY(0.975) rotate(-0.25deg)}
-    60%{transform:scaleY(1.018) rotate(0.18deg)}
+  @keyframes brainPulse{
+    0%,100%{filter:drop-shadow(0 30px 60px rgba(212,175,55,.35)) brightness(1)}
+    50%{filter:drop-shadow(0 30px 80px rgba(246,204,74,.55)) brightness(1.08)}
   }
-  @keyframes wingFloat{
+  @keyframes brainFloat{
     0%,100%{translate:0 0}
-    50%{translate:0 -6px}
+    50%{translate:0 -8px}
   }
   @media (prefers-reduced-motion:reduce){
     .dove-still{animation:none}
@@ -507,6 +505,50 @@
       0 0 36px rgba(255,190,70,.3);
   }
   .lede{max-width:680px;color:var(--muted);font-size:17px;margin-bottom:54px}
+
+  /* ====== PARTNERSHIP PROMISE ====== */
+  .partnership{padding:80px 0 60px;position:relative}
+  .partnership .wrap{max-width:920px;text-align:center}
+  .partnership .kicker{margin-bottom:24px}
+  .partnership-quote{
+    position:relative;
+    margin:0;padding:44px 40px;
+    border:1px solid rgba(246,204,74,.22);
+    border-radius:22px;
+    background:
+      radial-gradient(ellipse at top, rgba(246,204,74,.08) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(10,22,40,.6) 0%, rgba(10,22,40,.3) 100%);
+    backdrop-filter:blur(6px);
+    box-shadow:0 20px 60px -20px rgba(0,0,0,.45), inset 0 1px 0 rgba(246,204,74,.1);
+  }
+  .partnership-quote::before{
+    content:"“";
+    position:absolute;top:-6px;left:28px;
+    font-family:'Fraunces',serif;
+    font-size:88px;line-height:1;
+    color:var(--gold);
+    opacity:.55;
+    text-shadow:0 0 24px rgba(246,204,74,.4);
+  }
+  .partnership-quote p{
+    font-family:'Fraunces',serif;
+    color:var(--ivory,#F4E9CC);
+    font-size:clamp(18px,2.2vw,24px);
+    line-height:1.55;
+    font-weight:400;
+    margin:0 0 18px;
+    letter-spacing:-.005em;
+  }
+  .partnership-quote p:last-child{margin-bottom:0}
+  .partnership-quote em{
+    color:var(--gold);
+    font-style:italic;
+    font-weight:600;
+  }
+  @media (max-width:640px){
+    .partnership-quote{padding:36px 24px 30px}
+    .partnership-quote::before{font-size:64px;top:-4px;left:18px}
+  }
 
   /* ====== HOW IT WORKS ====== */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -799,7 +841,7 @@
         </svg>
       </div>
       <div class="dove-halo"></div>
-      <img class="dove-still" src="assets/dove-hero.webp" alt="Dreams of Grace — crowned golden dove in side-profile flight" />
+      <img class="dove-still" src="assets/hero-brain.png" alt="Dreams of Grace — luminous gold neural brain on navy, symbolising intelligent partnership" />
       <div class="dove-mask"></div>
       <div class="dove-constellation" aria-hidden="true">
         <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
@@ -842,6 +884,16 @@
 </header>
 
 <div class="divider">✦ The dream is ours. The grace is His. ✦</div>
+
+<section id="partnership" class="partnership">
+  <div class="wrap">
+    <span class="kicker">Our promise</span>
+    <blockquote class="partnership-quote">
+      <p>We don't just build agents and walk away. We partner with you to find the right agents, integrate them seamlessly, and keep them delivering.</p>
+      <p>With dedicated support and real-time performance tracking, we spot what's working, cut what's not, and adjust — so your business <em>never stops improving.</em></p>
+    </blockquote>
+  </div>
+</section>
 
 <section id="how">
   <div class="wrap">
