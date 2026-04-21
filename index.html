@@ -287,14 +287,53 @@
     animation:spin 100s linear infinite reverse;
   }
 
+  /* Tiny AI whisper header — above eyebrow + closing box */
+  .ai-whisper{
+    display:inline-block;font-family:'Fraunces',serif;font-style:italic;font-weight:500;
+    font-size:12px;letter-spacing:.04em;color:#FFE98A;
+    margin-bottom:10px;opacity:.92;
+    text-shadow:0 0 10px rgba(255,205,90,.6),0 0 22px rgba(246,204,74,.35);
+  }
   .eyebrow{
     display:inline-flex;align-items:center;gap:10px;
-    color:var(--gold);font-size:11px;letter-spacing:.32em;text-transform:uppercase;
-    padding:9px 20px;border:1px solid var(--line-strong);border-radius:999px;margin-bottom:26px;
-    background:rgba(212,175,55,.05);backdrop-filter:blur(6px);
-    font-weight:600;
+    color:#FFE98A;font-size:12px;letter-spacing:.34em;text-transform:uppercase;
+    padding:11px 24px;border:1.5px solid rgba(255,205,90,.55);border-radius:999px;margin-bottom:26px;
+    background:rgba(246,204,74,.08);backdrop-filter:blur(8px);
+    font-weight:800;
+    /* NEON BRIGHT: outer gold glow + inner highlight */
+    box-shadow:
+      0 0 22px rgba(255,205,90,.35),
+      0 0 48px rgba(246,204,74,.2),
+      inset 0 0 14px rgba(255,242,176,.18);
+    text-shadow:
+      0 0 8px rgba(255,205,90,.7),
+      0 0 18px rgba(246,204,74,.45),
+      0 1px 0 rgba(255,242,176,.4);
   }
-  .eyebrow::before,.eyebrow::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+  .eyebrow::before,.eyebrow::after{content:"";width:6px;height:6px;border-radius:50%;background:#FFF2B0;box-shadow:0 0 12px 2px #FFD93A,0 0 22px 4px rgba(255,205,90,.5)}
+
+  /* Closing box — neon gold outline around "The how is a conversation" */
+  .closer-box{
+    display:inline-block;margin:40px auto 0;padding:22px 34px 20px;
+    border:1.5px solid rgba(255,205,90,.5);border-radius:20px;
+    background:linear-gradient(180deg,rgba(246,204,74,.04),rgba(246,204,74,.08));
+    backdrop-filter:blur(8px);
+    box-shadow:
+      0 0 28px rgba(255,205,90,.28),
+      0 0 64px rgba(246,204,74,.14),
+      inset 0 0 18px rgba(255,242,176,.12);
+    max-width:720px;text-align:center;
+  }
+  .closer-box .closer-line{
+    font-family:'Fraunces',serif;font-size:clamp(16px,1.5vw,19px);
+    color:#FFE98A;font-weight:600;
+    text-shadow:0 0 12px rgba(255,205,90,.55),0 0 26px rgba(246,204,74,.3);
+    margin:0;
+  }
+  .closer-box .closer-line em{
+    color:#FFF2B0;font-weight:700;font-style:italic;
+    text-shadow:0 0 14px rgba(255,220,120,.7),0 0 30px rgba(255,205,90,.4),0 1px 0 rgba(255,248,200,.5);
+  }
 
   h1.hero-title{
     font-family:'Fraunces',serif;
@@ -723,6 +762,7 @@
       </div>
     </div>
 
+    <div class="ai-whisper">With the quiet aid of Artificial Intelligence</div>
     <div class="eyebrow">An automation partnership from Melbourne</div>
     <h1 class="hero-title">We build the website.<br>You keep <em>the revenue.</em></h1>
     <p class="hero-sub">Dreams of Grace partners with ambitious brands to design, build, and automate a modern digital presence — at zero upfront cost. Fees only unlock once your business transforms with revenue we helped create.</p>
@@ -829,7 +869,12 @@
       <div class="chip reveal reveal-d3"><strong>Tailored, Not Templated</strong>Your brand, one of one</div>
     </div>
 
-    <p class="lede" style="margin-top:36px;max-width:640px;text-align:center;color:var(--muted)">The how is a conversation. <em style="color:var(--gold)">The why is always you.</em></p>
+    <div style="text-align:center;margin-top:36px">
+      <div class="closer-box">
+        <div class="ai-whisper">All eight — and more — working seamlessly with the aid of AI</div>
+        <p class="closer-line">The how is a conversation. <em>The why is always you.</em></p>
+      </div>
+    </div>
   </div>
 </section>
 
