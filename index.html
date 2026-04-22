@@ -761,6 +761,67 @@
   /* Quote card uses same neon italic */
   .quote-card blockquote{font-weight:500 !important}
 
+  /* ===== NEW: Trust row (promises) ===== */
+  .promises{padding:100px 0 60px;position:relative;z-index:2}
+  .trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+  .trust-card{
+    background:linear-gradient(180deg, rgba(20,34,67,.75), rgba(10,22,40,.75));
+    border:1px solid rgba(212,175,55,.22);
+    border-radius:20px;padding:28px 26px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,241,194,.06);
+    transition:transform .4s ease, border-color .4s ease, box-shadow .4s ease;
+  }
+  .trust-card:hover{transform:translateY(-4px);border-color:rgba(240,200,96,.5);box-shadow:0 18px 44px rgba(0,0,0,.5), 0 0 0 1px rgba(240,200,96,.2)}
+  .trust-card .t-icon{font-size:34px;line-height:1;margin-bottom:14px;filter:drop-shadow(0 0 12px rgba(240,200,96,.4))}
+  .trust-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:22px;letter-spacing:-0.01em;color:var(--cream-hi);margin:0 0 10px}
+  .trust-card p{color:var(--muted);font-size:15.5px;line-height:1.55;margin:0}
+  @media (max-width:860px){ .trust-row{grid-template-columns:1fr;gap:18px} }
+
+  /* ===== NEW: Media tables ===== */
+  .tables{padding:80px 0;position:relative;z-index:2}
+  .tables.alt{background:linear-gradient(180deg, rgba(6,13,28,0) 0%, rgba(14,27,51,.55) 50%, rgba(6,13,28,0) 100%)}
+  .table-wrap{margin-top:32px;border-radius:22px;overflow:hidden;
+    border:1px solid rgba(212,175,55,.22);
+    box-shadow:0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,241,194,.05);
+    background:linear-gradient(180deg, rgba(14,27,51,.82), rgba(10,22,40,.82));
+    backdrop-filter:blur(6px);
+  }
+  .media-table{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;font-size:15.5px;color:var(--cream)}
+  .media-table thead th{
+    text-align:left;padding:18px 22px;
+    font-family:'Inter',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--gold);
+    background:linear-gradient(180deg, rgba(212,175,55,.10), rgba(212,175,55,.04));
+    border-bottom:1px solid rgba(212,175,55,.28);
+  }
+  .media-table tbody td{padding:18px 22px;vertical-align:top;line-height:1.55;border-bottom:1px solid rgba(212,175,55,.10)}
+  .media-table tbody tr:last-child td{border-bottom:0}
+  .media-table tbody tr:nth-child(even) td{background:rgba(212,175,55,.025)}
+  .media-table tbody tr:hover td{background:rgba(240,200,96,.06)}
+  .media-table strong{color:var(--cream-hi);font-weight:600}
+  .media-table td.free{color:var(--gold-bright, #FFD85A);font-weight:600}
+  .media-table th:nth-child(2),
+  .media-table td:nth-child(2){color:var(--muted)}
+  .media-table th:last-child,
+  .media-table td:last-child{color:var(--cream-hi)}
+  /* Phase number pill */
+  .ph-num{display:inline-flex;align-items:center;justify-content:center;
+    width:34px;height:34px;border-radius:50%;
+    background:linear-gradient(135deg, rgba(240,200,96,.22), rgba(212,175,55,.08));
+    border:1px solid rgba(240,200,96,.45);
+    color:var(--gold);font-family:'Fraunces',serif;font-weight:700;font-size:17px;
+    margin-right:12px;vertical-align:middle
+  }
+  @media (max-width:760px){
+    .media-table thead{display:none}
+    .media-table,.media-table tbody,.media-table tr,.media-table td{display:block;width:100%}
+    .media-table tbody tr{padding:10px 0;border-bottom:1px solid rgba(212,175,55,.18)}
+    .media-table tbody tr:last-child{border-bottom:0}
+    .media-table td{padding:8px 20px;border:0}
+    .media-table td:first-child{padding-top:18px;font-size:16px}
+    .media-table td.free,.media-table td:last-child{padding-bottom:18px;color:var(--gold-bright, #FFD85A);font-weight:600}
+  }
+
   /* Motion reduce */
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
@@ -796,9 +857,10 @@
     </a>
     <div class="nav-links">
       <a href="#how">How it works</a>
-      <a href="#model">The model</a>
-      <a href="#stack">The stack</a>
-      <a href="#contact" class="btn btn-primary">Start a conversation</a>
+      <a href="#promises">Our promises</a>
+      <a href="#included">What&rsquo;s included</a>
+      <a href="#protections">Your protections</a>
+      <a href="#contact" class="btn btn-primary">Book free call</a>
     </div>
   </div>
 </nav>
@@ -959,6 +1021,127 @@
         </blockquote>
         <cite>— Dreams of Grace</cite>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST ROW · 3 promises (NEW) -->
+<section id="promises" class="promises">
+  <div class="wrap">
+    <span class="kicker">Our promises</span>
+    <h2 class="section-title">Three promises, <em>written in grace.</em></h2>
+    <div class="trust-row">
+      <div class="trust-card reveal">
+        <div class="t-icon">🔒</div>
+        <h3>Your data. Always yours.</h3>
+        <p>We process it with care. We never own it. You can export it anytime.</p>
+      </div>
+      <div class="trust-card reveal reveal-d1">
+        <div class="t-icon">🏰</div>
+        <h3>Your site. Always live.</h3>
+        <p>Even if you never switch automation on, your website stays fully yours and fully working.</p>
+      </div>
+      <div class="trust-card reveal reveal-d2">
+        <div class="t-icon">💎</div>
+        <h3>Our fee. Only when you win.</h3>
+        <p>We share the upside only after real, measurable growth — agreed between us, in writing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA TABLE 1 · What's Included (NEW) -->
+<section id="included" class="tables">
+  <div class="wrap">
+    <span class="kicker">What&rsquo;s included</span>
+    <h2 class="section-title">Everything you need, <em>at no cost to start.</em></h2>
+    <p class="lede">Before a single dollar is discussed, here&rsquo;s what we build for you &mdash; for free.</p>
+    <div class="table-wrap reveal">
+      <table class="media-table">
+        <thead>
+          <tr><th>Feature</th><th>Typical Agency</th><th>Dreams of Grace</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Discovery call</strong> &mdash; understanding your business</td><td>Charged</td><td class="free">Free 🕊️</td></tr>
+          <tr><td><strong>Custom design</strong> &mdash; tailored to your brand</td><td>Charged</td><td class="free">Free 🏰</td></tr>
+          <tr><td><strong>Mobile &amp; tablet ready</strong> &mdash; works on every screen</td><td>Charged</td><td class="free">Free 📱</td></tr>
+          <tr><td><strong>Hosting &mdash; Year One</strong></td><td>Charged</td><td class="free">Free 🌐</td></tr>
+          <tr><td><strong>Domain setup</strong></td><td>Charged</td><td class="free">Free 🔗</td></tr>
+          <tr><td><strong>SSL security</strong></td><td>Charged</td><td class="free">Free 🔒</td></tr>
+          <tr><td><strong>Revisions until you love it</strong></td><td>Hourly rate</td><td class="free">Unlimited 💙</td></tr>
+          <tr><td><strong>Site ownership</strong></td><td>Agency locked</td><td class="free">100% Yours 🗝️</td></tr>
+          <tr><td><strong>Automation blueprint</strong> &mdash; ready when you are</td><td>Not offered</td><td class="free">Built in 🤖</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA TABLE 2 · The Four Phases (NEW) -->
+<section id="phases" class="tables alt">
+  <div class="wrap">
+    <span class="kicker">The journey</span>
+    <h2 class="section-title">Four phases, <em>one partnership.</em></h2>
+    <p class="lede">You&rsquo;ll always know where we are and what happens next. No surprises, no hidden stages.</p>
+    <div class="table-wrap reveal">
+      <table class="media-table phases">
+        <thead>
+          <tr><th>Phase</th><th>What happens</th><th>What you invest</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="ph-num">0</span><strong>Discovery</strong></td><td>A real conversation. We learn your business, your people, and where automation might quietly help.</td><td class="free">Nothing</td></tr>
+          <tr><td><span class="ph-num">1</span><strong>Build</strong></td><td>We craft your custom site &mdash; fully yours, fully live &mdash; with an automation layer built in but switched off.</td><td class="free">Nothing</td></tr>
+          <tr><td><span class="ph-num">2</span><strong>Activate</strong></td><td>When you&rsquo;re ready, you flip the switch. Our agents move into your systems. The one-time onboarding is agreed upfront.</td><td>Agreed after discovery</td></tr>
+          <tr><td><span class="ph-num">3</span><strong>Grow</strong></td><td>Automation delivers measurable growth. We share the upside only when the value is real &mdash; agreed in writing, triggered by agreed results.</td><td>Only when you win</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA TABLE 3 · Your Protections (NEW) -->
+<section id="protections" class="tables">
+  <div class="wrap">
+    <span class="kicker">Your protections</span>
+    <h2 class="section-title">Grace, <em>iron-clad.</em></h2>
+    <p class="lede">Every line here is a promise we build into every partnership &mdash; written in the agreement before we start.</p>
+    <div class="table-wrap reveal">
+      <table class="media-table">
+        <thead>
+          <tr><th>Protection</th><th>What it means for you</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🔒 <strong>Data ownership</strong></td><td>Your data stays yours, always. Export anytime.</td></tr>
+          <tr><td>🏰 <strong>Site continuity</strong></td><td>Your website keeps working even if automation is switched off or paused.</td></tr>
+          <tr><td>💸 <strong>Fair refund</strong></td><td>If we don&rsquo;t deliver what was agreed, we make it right.</td></tr>
+          <tr><td>🗝️ <strong>No lock-in</strong></td><td>Take your site and your agreement with you, anytime.</td></tr>
+          <tr><td>📊 <strong>Full transparency</strong></td><td>Your dashboard shows every agent action, every result.</td></tr>
+          <tr><td>⚖️ <strong>Your legal rights</strong></td><td>All Australian Consumer Law rights are fully preserved.</td></tr>
+          <tr><td>🤝 <strong>Written first</strong></td><td>Nothing charges, nothing activates, until it&rsquo;s agreed in writing.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA TABLE 4 · Price-Match & Fix-Match (NEW) -->
+<section id="match" class="tables alt">
+  <div class="wrap">
+    <span class="kicker">Our word</span>
+    <h2 class="section-title">The Price-Match &amp; Fix-Match <em>promise.</em></h2>
+    <p class="lede">You deserve the best. If we&rsquo;re not already it, we&rsquo;ll become it.</p>
+    <div class="table-wrap reveal">
+      <table class="media-table">
+        <thead>
+          <tr><th>If this happens&hellip;</th><th>Here&rsquo;s our response.</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>You find a fairly priced full package elsewhere</td><td>We review it openly and match it where the scope is equal.</td></tr>
+          <tr><td>A cheaper quote is missing features we include</td><td>We show you the gap side-by-side &mdash; no jargon, no pressure.</td></tr>
+          <tr><td>A competitor has a better idea than ours</td><td>We build it into your site &mdash; free &mdash; because the goal is your win.</td></tr>
+          <tr><td>We can&rsquo;t deliver what we promised</td><td>We make it right. Every time.</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
