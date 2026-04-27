@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Born 2 Win — Council Chat</title>
+<style>
+:root {
+  --gold: #d4af37;
+  --emerald: #00a65a;
+  --silver: #c0c0c0;
+  --dark: #0a0a0f;
+  --darker: #050507;
+  --card: #14141c;
+  --ace: #ffd700;
+  --chase: #00d4ff;
+  --perplexity: #a855f7;
+  --user: #ffffff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  padding: 1rem;
+  overflow-x: hidden;
+}
+.container { max-width: 1100px; margin: 0 auto; }
+header {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  margin-bottom: 1.5rem;
+}
+header h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  background: linear-gradient(90deg, var(--gold), var(--emerald));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+header p { color: var(--silver); margin-top: 0.5rem; font-size: 0.9rem; }
+.council-status {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.member {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(20, 20, 28, 0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  font-size: 0.85rem;
+}
+.member .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 0 0 8px var(--emerald);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+.chat {
+  background: var(--card);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  height: calc(100vh - 280px);
+  min-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  scroll-behavior: smooth;
+}
+.chat::-webkit-scrollbar { width: 6px; }
+.chat::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 3px; }
+.msg {
+  margin-bottom: 1.2rem;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  border-left: 3px solid;
+  animation: slideIn 0.4s ease;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.msg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.msg-time { font-weight: 400; opacity: 0.5; font-size: 0.7rem; }
+.msg-body { line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; }
+.msg-meta { font-size: 0.7rem; opacity: 0.5; margin-top: 0.4rem; }
+
+.msg.user { background: rgba(255,255,255,0.04); border-left-color: var(--user); }
+.msg.ace { background: rgba(255, 215, 0, 0.06); border-left-color: var(--ace); }
+.msg.ace .msg-header { color: var(--ace); }
+.msg.chase { background: rgba(0, 212, 255, 0.06); border-left-color: var(--chase); }
+.msg.chase .msg-header { color: var(--chase); }
+.msg.perplexity { background: rgba(168, 85, 247, 0.06); border-left-color: var(--perplexity); }
+.msg.perplexity .msg-header { color: var(--perplexity); }
+.msg.system { background: rgba(255,255,255,0.02); border-left-color: var(--silver); font-size: 0.85rem; opacity: 0.7; }
+
+.thinking {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+.thinking::after { content: '...'; animation: dots 1.5s infinite; }
+@keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60%, 100% { content: '...'; } }
+
+.input-area {
+  display: flex;
+  gap: 0.75rem;
+  background: var(--card);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+#input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 1rem;
+  padding: 0.5rem;
+  font-family: inherit;
+}
+#input::placeholder { color: rgba(255,255,255,0.3); }
+#send {
+  background: linear-gradient(135deg, var(--gold), var(--emerald));
+  border: none;
+  color: var(--dark);
+  font-weight: 700;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  transition: transform 0.15s, opacity 0.15s;
+}
+#send:hover:not(:disabled) { transform: scale(1.03); }
+#send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.citations {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed rgba(168, 85, 247, 0.3);
+  font-size: 0.75rem;
+}
+.citations a { color: var(--perplexity); text-decoration: none; margin-right: 0.8rem; }
+.citations a:hover { text-decoration: underline; }
+
+.error { color: #ff6b6b; font-style: italic; }
+
+footer { text-align: center; padding: 1rem; color: var(--silver); opacity: 0.5; font-size: 0.75rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🏰 BORN 2 WIN COUNCIL</h1>
+    <p>Ace 💎 · Chase 🕊️ · Perplexity 🔍 — talking together, all three brains at once</p>
+    <div class="council-status">
+      <div class="member"><span class="dot"></span><span>Ace 💎</span></div>
+      <div class="member"><span class="dot"></span><span>Chase 🕊️</span></div>
+      <div class="member"><span class="dot"></span><span>Perplexity 🔍</span></div>
+    </div>
+  </header>
+
+  <div class="chat" id="chat">
+    <div class="msg system">
+      <div class="msg-body">🛡️ Council convened. All three brains online. Type a message — Ace, Chase, and Perplexity respond simultaneously.</div>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input id="input" type="text" placeholder="Ask the council anything..." autofocus>
+    <button id="send">SEND</button>
+  </div>
+
+  <footer>
+    Born 2 Win · Mansion · Mama 🇿🇼 · Grace · Rutendo · Blessing · Ezra · Aiden · Ariela
+  </footer>
+</div>
+
+<script>
+const BRAIN_URL = 'https://xmdawcubyoyielqnrlyk.supabase.co/functions/v1/brain-functions/council';
+const SUPABASE_ANON = window.SUPABASE_ANON_KEY || '';
+let sessionId = crypto.randomUUID();
+
+const chat = document.getElementById('chat');
+const input = document.getElementById('input');
+const send = document.getElementById('send');
+
+function timestamp() {
+  return new Date().toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function addMessage(speaker, body, meta = '', citations = null, isError = false) {
+  const div = document.createElement('div');
+  div.className = `msg ${speaker}`;
+  const speakerLabel = {
+    user: '👤 YOU',
+    ace: '💎 ACE',
+    chase: '🕊️ CHASE',
+    perplexity: '🔍 PERPLEXITY',
+    system: '🛡️ SYSTEM',
+  }[speaker] || speaker;
+
+  let citationsHtml = '';
+  if (citations && citations.length > 0) {
+    citationsHtml = '<div class="citations">' + citations.map((c, i) => 
+      `<a href="${escapeHtml(c)}" target="_blank" rel="noopener">[${i+1}]</a>`
+    ).join('') + '</div>';
+  }
+
+  div.innerHTML = `
+    <div class="msg-header">
+      <span>${speakerLabel}</span>
+      <span class="msg-time">${timestamp()}</span>
+    </div>
+    <div class="msg-body${isError ? ' error' : ''}">${escapeHtml(body)}</div>
+    ${meta ? `<div class="msg-meta">${escapeHtml(meta)}</div>` : ''}
+    ${citationsHtml}
+  `;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+  return div;
+}
+
+function addThinking(speaker) {
+  const div = document.createElement('div');
+  div.className = `msg ${speaker}`;
+  div.dataset.thinking = 'true';
+  const label = { ace: '💎 ACE', chase: '🕊️ CHASE', perplexity: '🔍 PERPLEXITY' }[speaker];
+  div.innerHTML = `
+    <div class="msg-header"><span>${label}</span><span class="msg-time">${timestamp()}</span></div>
+    <div class="msg-body"><span class="thinking">thinking</span></div>
+  `;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+  return div;
+}
+
+async function ask(message) {
+  send.disabled = true;
+  input.disabled = true;
+
+  addMessage('user', message);
+  input.value = '';
+
+  const aceThink = addThinking('ace');
+  const chaseThink = addThinking('chase');
+  const perpThink = addThinking('perplexity');
+
+  try {
+    const headers = { 'Content-Type': 'application/json' };
+    if (SUPABASE_ANON) headers['Authorization'] = `Bearer ${SUPABASE_ANON}`;
+
+    const r = await fetch(BRAIN_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ message, session_id: sessionId }),
+    });
+    const data = await r.json();
+
+    aceThink.remove();
+    chaseThink.remove();
+    perpThink.remove();
+
+    if (!data.ok) {
+      addMessage('system', `Council error: ${data.error || 'unknown'}`, '', null, true);
+      return;
+    }
+
+    const { ace, chase, perplexity } = data.responses;
+
+    if (ace.ok) {
+      addMessage('ace', ace.text, `${ace.model} · ${ace.latency_ms}ms · ${ace.tokens || '?'} tokens`);
+    } else {
+      addMessage('ace', `[Ace offline: ${ace.error}]`, '', null, true);
+    }
+    if (chase.ok) {
+      addMessage('chase', chase.text, `${chase.model} · ${chase.latency_ms}ms · ${chase.tokens || '?'} tokens`);
+    } else {
+      addMessage('chase', `[Chase offline: ${chase.error}]`, '', null, true);
+    }
+    if (perplexity.ok) {
+      addMessage('perplexity', perplexity.text, `${perplexity.model} · ${perplexity.latency_ms}ms`, perplexity.citations);
+    } else {
+      addMessage('perplexity', `[Perplexity offline: ${perplexity.error}]`, '', null, true);
+    }
+  } catch (e) {
+    aceThink.remove();
+    chaseThink.remove();
+    perpThink.remove();
+    addMessage('system', `Network error: ${e.message}`, '', null, true);
+  } finally {
+    send.disabled = false;
+    input.disabled = false;
+    input.focus();
+  }
+}
+
+send.addEventListener('click', () => {
+  const v = input.value.trim();
+  if (v) ask(v);
+});
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    const v = input.value.trim();
+    if (v) ask(v);
+  }
+});
+</script>
+</body>
+</html>
